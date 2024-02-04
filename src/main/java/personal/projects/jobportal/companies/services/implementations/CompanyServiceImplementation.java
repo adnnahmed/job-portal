@@ -37,7 +37,7 @@ public class CompanyServiceImplementation implements CompanyService {
         Optional<Company> companyOptional = companyRepository.findById(companyId);
         if (companyOptional.isPresent())
             return ResponseEntity.ok(companyOptional.get());
-        throw new ResourceUnavailableException("Job request with ID " + companyId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
@@ -51,15 +51,15 @@ public class CompanyServiceImplementation implements CompanyService {
             company.setId(companyId);
             return ResponseEntity.ok(companyRepository.save(company));
         }
-        throw new ResourceUnavailableException("Job request with ID " + companyId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
     public ResponseEntity<String> deleteJobRequest(Long companyId) throws ResourceUnavailableException {
         if (companyRepository.existsById(companyId)) {
             companyRepository.deleteById(companyId);
-            return ResponseEntity.ok("Job request with ID " + companyId + " has been deleted.");
+            return ResponseEntity.ok("Company with ID " + companyId + " has been deleted.");
         }
-        throw new ResourceUnavailableException("Job request with ID " + companyId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 }

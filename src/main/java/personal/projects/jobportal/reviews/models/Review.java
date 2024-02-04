@@ -1,4 +1,4 @@
-package personal.projects.jobportal.companies.models;
+package personal.projects.jobportal.reviews.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -6,26 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import personal.projects.jobportal.jobs.models.Job;
-import personal.projects.jobportal.reviews.models.Review;
-
-import java.util.List;
+import personal.projects.jobportal.companies.models.Company;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Company {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String title;
     private String description;
+    private double rating;
     @JsonIgnore
-    @OneToMany(mappedBy = "company")
-    private List<Job> jobsList;
-    @OneToMany(mappedBy = "company")
-    private List<Review> reviewsList;
+    @ManyToOne
+    private Company company;
 }
