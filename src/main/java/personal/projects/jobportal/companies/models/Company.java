@@ -1,11 +1,14 @@
 package personal.projects.jobportal.companies.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import personal.projects.jobportal.jobs.models.Job;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +18,13 @@ import lombok.Setter;
 public class Company {
 
     @Id
-    Long id;
-    String name;
-    String description;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String description;
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Job> jobsList;
+    //@OneToMany
+    //private List<Review> reviewsList;
 }

@@ -7,6 +7,7 @@ import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 import java.util.List;
 
 public interface CompanyService {
+
     ResponseEntity<List<Company>> findAllCompanies() throws ResourceUnavailableException;
     ResponseEntity<Company> findSingleCompany(Long companyId) throws ResourceUnavailableException;
     ResponseEntity<Company> createJobRequest(Company company);
