@@ -1,4 +1,4 @@
-package personal.projects.jobportal.models;
+package personal.projects.jobportal.jobs.models;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,13 +1,13 @@
-package personal.projects.jobportal.services.implementations;
+package personal.projects.jobportal.jobs.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import personal.projects.jobportal.exceptions.ResourceUnavailableException;
-import personal.projects.jobportal.models.Job;
-import personal.projects.jobportal.repositories.JobRepository;
-import personal.projects.jobportal.services.JobService;
+import personal.projects.jobportal.jobs.exceptions.ResourceUnavailableException;
+import personal.projects.jobportal.jobs.models.Job;
+import personal.projects.jobportal.jobs.repositories.JobRepository;
+import personal.projects.jobportal.jobs.services.JobService;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +46,10 @@ public class JobServiceImplementation implements JobService {
 
     @Override
     public ResponseEntity<Job> replaceJobRequest(Long jobId, Job job) throws ResourceUnavailableException {
-        if (jobRepository.existsById(jobId))
+        if (jobRepository.existsById(jobId)) {
+            job.setId(jobId);
             return ResponseEntity.ok(jobRepository.save(job));
+        }
         throw new ResourceUnavailableException("Job request with ID " + jobId + " is unavailable.");
     }
 
