@@ -1,4 +1,4 @@
-package personal.projects.jobportal.jobs.exceptions;
+package personal.projects.jobportal.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

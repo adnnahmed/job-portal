@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import personal.projects.jobportal.jobs.exceptions.ResourceUnavailableException;
+import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 import personal.projects.jobportal.jobs.models.Job;
 import personal.projects.jobportal.jobs.repositories.JobRepository;
 import personal.projects.jobportal.jobs.services.JobService;

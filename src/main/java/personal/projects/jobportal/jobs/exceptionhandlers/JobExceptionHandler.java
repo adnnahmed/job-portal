@@ -1,11 +1,11 @@
-package personal.projects.jobportal.jobs.exceptions.exceptionhandlers;
+package personal.projects.jobportal.jobs.exceptionhandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import personal.projects.jobportal.jobs.exceptions.CustomException;
-import personal.projects.jobportal.jobs.exceptions.ResourceUnavailableException;
+import personal.projects.jobportal.exceptions.CustomException;
+import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

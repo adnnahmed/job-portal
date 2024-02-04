@@ -1,7 +1,7 @@
 package personal.projects.jobportal.jobs.services;
 
 import org.springframework.http.ResponseEntity;
-import personal.projects.jobportal.jobs.exceptions.ResourceUnavailableException;
+import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 import personal.projects.jobportal.jobs.models.Job;
 
 import java.util.List;

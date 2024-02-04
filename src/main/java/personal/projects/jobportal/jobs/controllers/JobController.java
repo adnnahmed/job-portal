@@ -3,7 +3,7 @@ package personal.projects.jobportal.jobs.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import personal.projects.jobportal.jobs.exceptions.ResourceUnavailableException;
+import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 import personal.projects.jobportal.jobs.models.Job;
 import personal.projects.jobportal.jobs.services.JobService;
 
