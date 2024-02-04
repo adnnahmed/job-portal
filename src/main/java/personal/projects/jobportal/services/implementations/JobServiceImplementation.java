@@ -55,7 +55,7 @@ public class JobServiceImplementation implements JobService {
     public ResponseEntity<String> deleteJobRequest(Long jobId) throws ResourceUnavailableException {
         if (jobRepository.existsById(jobId)) {
             jobRepository.deleteById(jobId);
-            return ResponseEntity.ok("Job request with ID " + jobId + "has been deleted.");
+            return ResponseEntity.ok("Job request with ID " + jobId + " has been deleted.");
         }
         throw new ResourceUnavailableException("Job request with ID " + jobId + " is unavailable.");
     }
