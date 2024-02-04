@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface JobRepository {
+
     List<Job> findAll();
     Optional<Job> findById(Long id);
     boolean existsById(Long jobId);

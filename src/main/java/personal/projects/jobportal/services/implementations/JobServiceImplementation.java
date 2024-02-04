@@ -45,8 +45,7 @@ public class JobServiceImplementation implements JobService {
     }
 
     @Override
-    public ResponseEntity<Job> replaceJobRequest(Job job) throws ResourceUnavailableException {
-        Long jobId = job.getId();
+    public ResponseEntity<Job> replaceJobRequest(Long jobId, Job job) throws ResourceUnavailableException {
         if (jobRepository.existsById(jobId))
             return ResponseEntity.ok(jobRepository.save(job));
         throw new ResourceUnavailableException("Job request with ID " + jobId + " is unavailable.");

@@ -25,9 +25,9 @@ public class JobController {
         return jobService.findAllJobsRequests();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Job> findSingleJobRequest(@PathVariable Long id) throws ResourceUnavailableException {
-        return jobService.findSingleJobRequest(id);
+    @GetMapping("/{jobId}")
+    public ResponseEntity<Job> findSingleJobRequest(@PathVariable Long jobId) throws ResourceUnavailableException {
+        return jobService.findSingleJobRequest(jobId);
     }
 
     @PostMapping
@@ -35,13 +35,14 @@ public class JobController {
         return jobService.createJobRequest(job);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Job> replaceJobRequest(@RequestBody Job job) throws ResourceUnavailableException {
-        return jobService.replaceJobRequest(job);
+    @PutMapping("/{jobId}")
+    public ResponseEntity<Job> replaceJobRequest(@PathVariable Long jobId,
+                                                 @RequestBody Job job) throws ResourceUnavailableException {
+        return jobService.replaceJobRequest(jobId, job);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteJobRequest(@PathVariable Long id) throws ResourceUnavailableException {
-        return jobService.deleteJobRequest(id);
+    @DeleteMapping("/{jobId}")
+    public ResponseEntity<String> deleteJobRequest(@PathVariable Long jobId) throws ResourceUnavailableException {
+        return jobService.deleteJobRequest(jobId);
     }
 }
