@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ReviewService {
 
-    ResponseEntity<List<Review>> getAllReviews() throws ResourceUnavailableException;
-    ResponseEntity<Review> getSingleReview(Long reviewId) throws ResourceUnavailableException;
-    ResponseEntity<Review> createReview(Review review);
-    ResponseEntity<Review> replaceReview(Long reviewId, Review review) throws ResourceUnavailableException;
-    ResponseEntity<String> deleteReview(Long reviewId) throws ResourceUnavailableException;
+    ResponseEntity<List<Review>> getAllReviews(Long companyId) throws ResourceUnavailableException;
+    ResponseEntity<Review> getSingleReview(Long companyId, Long reviewId) throws ResourceUnavailableException;
+    ResponseEntity<Review> createReview(Long companyId, Review review) throws ResourceUnavailableException;
+    ResponseEntity<Review> replaceReview(Long companyId, Long reviewId, Review review) throws ResourceUnavailableException;
+    ResponseEntity<String> deleteReview(Long companyId, Long reviewId) throws ResourceUnavailableException;
 }

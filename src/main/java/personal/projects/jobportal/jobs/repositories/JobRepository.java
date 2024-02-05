@@ -11,13 +11,4 @@ import java.util.Optional;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-    @NonNull
-    List<Job> findAll();
-    @NonNull
-    Optional<Job> findById(@NonNull Long id);
-    @NonNull
-    boolean existsById(@NonNull Long jobId);
-    @NonNull
-    Job save(@NonNull Job job);
-    void deleteById(@NonNull Long id);
 }

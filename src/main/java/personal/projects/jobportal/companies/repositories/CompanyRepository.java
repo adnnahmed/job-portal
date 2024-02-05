@@ -5,5 +5,4 @@ import personal.projects.jobportal.companies.models.Company;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
-
 }

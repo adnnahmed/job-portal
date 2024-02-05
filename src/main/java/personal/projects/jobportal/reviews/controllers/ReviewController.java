@@ -21,28 +21,32 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Review>> getAllReviews() throws ResourceUnavailableException {
-        return reviewService.getAllReviews();
+    @GetMapping("/reviews")
+    public ResponseEntity<List<Review>> getAllReviews(@PathVariable Long companyId) throws ResourceUnavailableException {
+        return reviewService.getAllReviews(companyId);
     }
 
-    @GetMapping("/{reviewId}")
-    public ResponseEntity<Review> getSingleReview(@PathVariable Long reviewId) throws ResourceUnavailableException {
-        return reviewService.getSingleReview(reviewId);
+    @GetMapping("/reviews/{reviewId}")
+    public ResponseEntity<Review> getSingleReview(@PathVariable Long companyId,
+                                                  @PathVariable Long reviewId) throws ResourceUnavailableException {
+        return reviewService.getSingleReview(companyId, reviewId);
     }
 
-    @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        return reviewService.createReview(review);
+    @PostMapping("/reviews")
+    public ResponseEntity<Review> createReview(@PathVariable Long companyId,
+                                               @RequestBody Review review) throws ResourceUnavailableException {
+        return reviewService.createReview(companyId, review);
     }
 
-    @PutMapping("/{reviewId}")
-    public ResponseEntity<Review> replaceReview(@PathVariable Long reviewId, @RequestBody Review review) throws ResourceUnavailableException {
-        return reviewService.replaceReview(reviewId, review);
+    @PutMapping("/reviews/{reviewId}")
+    public ResponseEntity<Review> replaceReview(@PathVariable Long companyId,
+                                                @PathVariable Long reviewId,
+                                                @RequestBody Review review) throws ResourceUnavailableException {
+        return reviewService.replaceReview(companyId, reviewId, review);
     }
 
-    @DeleteMapping("/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId) throws ResourceUnavailableException {
-        return reviewService.deleteReview(reviewId);
+    @DeleteMapping("/review/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long companyId, @PathVariable Long reviewId) throws ResourceUnavailableException {
+        return reviewService.deleteReview(companyId, reviewId);
     }
 }

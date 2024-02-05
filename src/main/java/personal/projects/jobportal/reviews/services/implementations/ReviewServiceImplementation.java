@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import personal.projects.jobportal.companies.models.Company;
+import personal.projects.jobportal.companies.services.CompanyService;
 import personal.projects.jobportal.exceptions.ResourceUnavailableException;
 import personal.projects.jobportal.reviews.models.Review;
 import personal.projects.jobportal.reviews.repositories.ReviewRepository;
@@ -17,15 +17,17 @@ import java.util.Optional;
 public class ReviewServiceImplementation implements ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final CompanyService companyService;
 
     @Autowired
-    public ReviewServiceImplementation(ReviewRepository reviewRepository) {
+    public ReviewServiceImplementation(ReviewRepository reviewRepository, CompanyService companyService) {
         this.reviewRepository = reviewRepository;
+        this.companyService = companyService;
     }
 
     @Override
-    public ResponseEntity<List<Review>> getAllReviews() throws ResourceUnavailableException {
-        List<Review> reviewsList = reviewRepository.findAll();
+    public ResponseEntity<List<Review>> getAllReviews(Long companyId) throws ResourceUnavailableException {
+        List<Review> reviewsList = reviewRepository.findByCompanyId(companyId);
         if (reviewsList.isEmpty()) {
             throw new ResourceUnavailableException("No data is available.");
         }
@@ -33,33 +35,35 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public ResponseEntity<Review> getSingleReview(Long reviewId) throws ResourceUnavailableException {
+    public ResponseEntity<Review> getSingleReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isPresent())
             return ResponseEntity.ok(reviewOptional.get());
-        throw new ResourceUnavailableException("Company with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
     }
 
     @Override
-    public ResponseEntity<Review> createReview(Review review) {
+    public ResponseEntity<Review> createReview(Long companyId, Review review) throws ResourceUnavailableException {
+        review.setCompany(companyService.findSingleCompany(companyId).getBody());
         return new ResponseEntity<>(reviewRepository.save(review), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Review> replaceReview(Long reviewId, Review review) throws ResourceUnavailableException {
+    public ResponseEntity<Review> replaceReview(Long companyId, Long reviewId, Review review) throws ResourceUnavailableException {
         if (reviewRepository.existsById(reviewId)) {
             review.setId(reviewId);
+            review.setCompany(companyService.findSingleCompany(companyId).getBody());
             return ResponseEntity.ok(reviewRepository.save(review));
         }
-        throw new ResourceUnavailableException("Company with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
     }
 
     @Override
-    public ResponseEntity<String> deleteReview(Long reviewId) throws ResourceUnavailableException {
+    public ResponseEntity<String> deleteReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
         if (reviewRepository.existsById(reviewId)) {
             reviewRepository.deleteById(reviewId);
-            return ResponseEntity.ok("Company with ID " + reviewId + " has been deleted.");
+            return ResponseEntity.ok("Review with ID " + reviewId + " has been deleted.");
         }
-        throw new ResourceUnavailableException("Company with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
     }
 }
