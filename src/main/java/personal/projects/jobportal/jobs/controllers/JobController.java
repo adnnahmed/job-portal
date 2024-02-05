@@ -31,7 +31,7 @@ public class JobController {
     }
 
     @PostMapping
-    public ResponseEntity<Job> createJobRequest(@RequestBody Job job) {
+    public ResponseEntity<Job> createJobRequest(@RequestBody Job job) throws ResourceUnavailableException {
         return jobService.createJobRequest(job);
     }
 

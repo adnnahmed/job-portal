@@ -10,7 +10,8 @@ public interface CompanyService {
 
     ResponseEntity<List<Company>> findAllCompanies() throws ResourceUnavailableException;
     ResponseEntity<Company> findSingleCompany(Long companyId) throws ResourceUnavailableException;
-    ResponseEntity<Company> createJobRequest(Company company);
-    ResponseEntity<Company> replaceJobRequest(Long companyId, Company company) throws ResourceUnavailableException;
-    ResponseEntity<String> deleteJobRequest(Long jobId) throws ResourceUnavailableException;
+    ResponseEntity<Company> createCompany(Company company);
+    ResponseEntity<Company> replaceCompany(Long companyId, Company company) throws ResourceUnavailableException;
+    ResponseEntity<String> deleteCompany(Long companyId) throws ResourceUnavailableException;
+    boolean existsByCompanyId(Long companyId);
 }

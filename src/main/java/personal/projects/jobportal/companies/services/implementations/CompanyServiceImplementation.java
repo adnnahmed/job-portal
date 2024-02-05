@@ -41,12 +41,12 @@ public class CompanyServiceImplementation implements CompanyService {
     }
 
     @Override
-    public ResponseEntity<Company> createJobRequest(Company company) {
+    public ResponseEntity<Company> createCompany(Company company) {
         return new ResponseEntity<>(companyRepository.save(company), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Company> replaceJobRequest(Long companyId, Company company) throws ResourceUnavailableException {
+    public ResponseEntity<Company> replaceCompany(Long companyId, Company company) throws ResourceUnavailableException {
         if (companyRepository.existsById(companyId)) {
             company.setId(companyId);
             return ResponseEntity.ok(companyRepository.save(company));
@@ -55,11 +55,16 @@ public class CompanyServiceImplementation implements CompanyService {
     }
 
     @Override
-    public ResponseEntity<String> deleteJobRequest(Long companyId) throws ResourceUnavailableException {
+    public ResponseEntity<String> deleteCompany(Long companyId) throws ResourceUnavailableException {
         if (companyRepository.existsById(companyId)) {
             companyRepository.deleteById(companyId);
             return ResponseEntity.ok("Company with ID " + companyId + " has been deleted.");
         }
         throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
+    }
+
+    @Override
+    public boolean existsByCompanyId(Long companyId) {
+        return companyRepository.existsById(companyId);
     }
 }

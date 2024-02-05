@@ -27,49 +27,64 @@ public class ReviewServiceImplementation implements ReviewService {
 
     @Override
     public ResponseEntity<List<Review>> getAllReviews(Long companyId) throws ResourceUnavailableException {
-        List<Review> reviewsList = reviewRepository.findByCompanyId(companyId);
-        if (reviewsList.isEmpty()) {
-            throw new ResourceUnavailableException("No data is available.");
+        if (companyService.existsByCompanyId(companyId)) {
+            List<Review> reviewsList = reviewRepository.findByCompanyId(companyId);
+            if (reviewsList.isEmpty()) {
+                throw new ResourceUnavailableException("No data is available.");
+            }
+            return ResponseEntity.ok(reviewsList);
         }
-        return ResponseEntity.ok(reviewsList);
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
     public ResponseEntity<Review> getSingleReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
-        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
-        if (reviewOptional.isPresent()) {
-            if (reviewOptional.get().getCompany().getId().equals(companyId)) {
-                return ResponseEntity.ok(reviewOptional.get());
+        if (companyService.existsByCompanyId(companyId)) {
+            Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+            if (reviewOptional.isPresent()) {
+                if (reviewOptional.get().getCompany().getId().equals(companyId)) {
+                    return ResponseEntity.ok(reviewOptional.get());
+                }
             }
+            throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
         }
-        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
     public ResponseEntity<Review> createReview(Long companyId, Review review) throws ResourceUnavailableException {
-        review.setCompany(companyService.findSingleCompany(companyId).getBody());
-        return new ResponseEntity<>(reviewRepository.save(review), HttpStatus.CREATED);
+        if (companyService.existsByCompanyId(companyId)) {
+            review.setCompany(companyService.findSingleCompany(companyId).getBody());
+            return new ResponseEntity<>(reviewRepository.save(review), HttpStatus.CREATED);
+        }
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
     public ResponseEntity<Review> replaceReview(Long companyId, Long reviewId, Review review) throws ResourceUnavailableException {
-        if (reviewRepository.existsById(reviewId)) {
-            review.setId(reviewId);
-            review.setCompany(companyService.findSingleCompany(companyId).getBody());
-            return ResponseEntity.ok(reviewRepository.save(review));
+        if (companyService.existsByCompanyId(companyId)) {
+            if (reviewRepository.existsById(reviewId)) {
+                review.setId(reviewId);
+                review.setCompany(companyService.findSingleCompany(companyId).getBody());
+                return ResponseEntity.ok(reviewRepository.save(review));
+            }
+            throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
         }
-        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 
     @Override
     public ResponseEntity<String> deleteReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
-        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
-        if (reviewOptional.isPresent()) {
-            if (reviewOptional.get().getCompany().getId().equals(companyId)) {
-                reviewRepository.deleteById(reviewId);
-                return ResponseEntity.ok("Review with ID " + reviewId + " has been deleted.");
+        if (companyService.existsByCompanyId(companyId)) {
+            Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+            if (reviewOptional.isPresent()) {
+                if (reviewOptional.get().getCompany().getId().equals(companyId)) {
+                    reviewRepository.deleteById(reviewId);
+                    return ResponseEntity.ok("Review with ID " + reviewId + " has been deleted.");
+                }
             }
+            throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
         }
-        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
+        throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
 }

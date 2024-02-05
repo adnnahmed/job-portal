@@ -33,17 +33,17 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
-        return companyService.createJobRequest(company);
+        return companyService.createCompany(company);
     }
 
     @PutMapping("/{companyId}")
-    public ResponseEntity<Company> replaceJobRequest(@PathVariable Long companyId,
+    public ResponseEntity<Company> replaceCompany(@PathVariable Long companyId,
                                                      @RequestBody Company company) throws ResourceUnavailableException {
-        return companyService.replaceJobRequest(companyId, company);
+        return companyService.replaceCompany(companyId, company);
     }
 
     @DeleteMapping("/{companyId}")
-    public ResponseEntity<String> deleteJobRequest(@PathVariable Long jobId) throws ResourceUnavailableException {
-        return companyService.deleteJobRequest(jobId);
+    public ResponseEntity<String> deleteCompany(@PathVariable Long companyId) throws ResourceUnavailableException {
+        return companyService.deleteCompany(companyId);
     }
 }
