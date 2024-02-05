@@ -1,4 +1,4 @@
-package personal.projects.jobportal.jobs.exceptionhandlers;
+package personal.projects.jobportal.exceptionhandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class JobExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceUnavailableException.class)
     public ResponseEntity<Object> handleResourceUnavailableException(ResourceUnavailableException resourceUnavailableException) {

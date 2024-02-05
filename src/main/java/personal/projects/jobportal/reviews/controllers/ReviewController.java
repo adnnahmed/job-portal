@@ -46,7 +46,8 @@ public class ReviewController {
     }
 
     @DeleteMapping("/review/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable Long companyId, @PathVariable Long reviewId) throws ResourceUnavailableException {
+    public ResponseEntity<String> deleteReview(@PathVariable Long companyId,
+                                               @PathVariable Long reviewId) throws ResourceUnavailableException {
         return reviewService.deleteReview(companyId, reviewId);
     }
 }

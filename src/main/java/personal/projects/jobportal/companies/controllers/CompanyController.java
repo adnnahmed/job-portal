@@ -38,7 +38,7 @@ public class CompanyController {
 
     @PutMapping("/{companyId}")
     public ResponseEntity<Company> replaceJobRequest(@PathVariable Long companyId,
-                                                 @RequestBody Company company) throws ResourceUnavailableException {
+                                                     @RequestBody Company company) throws ResourceUnavailableException {
         return companyService.replaceJobRequest(companyId, company);
     }
 

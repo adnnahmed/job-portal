@@ -37,8 +37,11 @@ public class ReviewServiceImplementation implements ReviewService {
     @Override
     public ResponseEntity<Review> getSingleReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
-        if (reviewOptional.isPresent())
-            return ResponseEntity.ok(reviewOptional.get());
+        if (reviewOptional.isPresent()) {
+            if (reviewOptional.get().getCompany().getId().equals(companyId)) {
+                return ResponseEntity.ok(reviewOptional.get());
+            }
+        }
         throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
     }
 
@@ -60,9 +63,12 @@ public class ReviewServiceImplementation implements ReviewService {
 
     @Override
     public ResponseEntity<String> deleteReview(Long companyId, Long reviewId) throws ResourceUnavailableException {
-        if (reviewRepository.existsById(reviewId)) {
-            reviewRepository.deleteById(reviewId);
-            return ResponseEntity.ok("Review with ID " + reviewId + " has been deleted.");
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isPresent()) {
+            if (reviewOptional.get().getCompany().getId().equals(companyId)) {
+                reviewRepository.deleteById(reviewId);
+                return ResponseEntity.ok("Review with ID " + reviewId + " has been deleted.");
+            }
         }
         throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
     }
