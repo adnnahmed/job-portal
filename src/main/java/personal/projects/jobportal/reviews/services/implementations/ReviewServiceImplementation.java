@@ -87,4 +87,22 @@ public class ReviewServiceImplementation implements ReviewService {
         }
         throw new ResourceUnavailableException("Company with ID " + companyId + " is unavailable.");
     }
+
+    @Override
+    public ResponseEntity<List<Review>> getAllReviewsOfAllCompanies() throws ResourceUnavailableException {
+        List<Review> reviewsList = reviewRepository.findAll();
+        if (reviewsList.isEmpty()) {
+            throw new ResourceUnavailableException("No data is available.");
+        }
+        return ResponseEntity.ok(reviewsList);
+    }
+
+    @Override
+    public ResponseEntity<Review> getSingleReviewWithoutCompany(Long reviewId) throws ResourceUnavailableException {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isPresent()) {
+            return ResponseEntity.ok(reviewOptional.get());
+        }
+        throw new ResourceUnavailableException("Review with ID " + reviewId + " is unavailable.");
+    }
 }
