@@ -81,3 +81,11 @@ Ensure that your PostgreSQL database is properly configured in the `application.
 `spring.datasource.username=your_username`
 
 `spring.datasource.password=your_password` 
+
+## Contributing
+
+Feel free to contribute to the project by submitting issues or pull requests. Your feedback and contributions are highly appreciated.
+
+## License
+
+This project is licensed under the MIT License.
