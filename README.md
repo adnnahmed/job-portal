@@ -66,7 +66,7 @@ Before you begin, ensure you have the following installed:
 -   **Reviews:**
     
     -   **GET /companies/{companyId}/reviews** Retrieve all reviews for a specific company.
-    -   **GET /companies/{companyId}/reviews/{reviewId}** Retrieve a specific review by ID for a specific company.
+    -   **GET /companies/{companyId}/reviews/{reviewId}** Retrieve a specific review by ID of a specific company.
     -   **POST /companies/{companyId}/reviews** Submit a review for a company.
     -   **PUT /companies/{companyId}/reviews/{reviewId}:** Update a review.
     -   **DELETE /companies/{companyId}/reviews/{reviewId}:** Delete a review.
