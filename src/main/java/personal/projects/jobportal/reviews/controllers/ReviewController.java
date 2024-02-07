@@ -10,8 +10,13 @@ import personal.projects.jobportal.reviews.services.ReviewService;
 
 import java.util.List;
 
+/*
+    Todo - Add User Entity
+    Todo - **GET /reviews/user/{userId}:** Retrieve all reviews submitted by a specific user.
+ */
+
 @RestController
-@RequestMapping("companies/{companyId}")
+@RequestMapping("/companies/{companyId}")
 public class ReviewController {
 
     private final ReviewService reviewService;
