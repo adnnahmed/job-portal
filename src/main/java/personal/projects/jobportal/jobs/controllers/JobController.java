@@ -20,7 +20,7 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Job>> findAllJobsRequests() throws ResourceUnavailableException {
         return jobService.findAllJobsRequests();
     }
